@@ -1,0 +1,40 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.spacific.MainActivity">
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Settings"
+        app:showAsAction="never"
+        app:iconTint="@android:color/white"
+        android:textColor="@android:color/white" /> <!-- Text color for this item -->
+
+    <item
+        android:id="@+id/nav_second_activity"
+        android:title="My Houses"
+        app:showAsAction="never"
+        app:iconTint="@android:color/white"
+        android:textColor="@android:color/white" /> <!-- Text color for this item -->
+
+    <item
+        android:id="@+id/nav_third_activity"
+        android:title="Booked Spaces"
+        app:showAsAction="never"
+        app:iconTint="@android:color/white"
+        android:textColor="@android:color/white" /> <!-- Text color for this item -->
+
+    <item
+        android:id="@+id/menu_settings"
+        android:title="Settings"
+        app:iconTint="@android:color/white"
+        android:textColor="@android:color/white" /> <!-- Text color for this item -->
+
+    <item
+        android:id="@+id/menu_edit_profile"
+        android:title="Edit Profile"
+        app:iconTint="@android:color/white"
+        android:textColor="@android:color/white" /> <!-- Text color for this item -->
+
+</menu>

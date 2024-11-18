@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Circular shape style for ImageView -->
+    <style name="CircularImage">
+        <item name="shapeAppearanceOverlay">@style/CircularShape</item>
+    </style>
+
+    <!-- Define a circular shape using corner radius -->
+    <style name="CircularShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">60dp</item>
+    </style>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/FirstFragment"
+        android:icon="@drawable/ic_first"
+        android:title="Home" />
+    <item
+        android:id="@+id/SecondFragment"
+        android:icon="@drawable/ic_second"
+        android:title="Chats" />
+    <item
+        android:id="@+id/ThirdFragment"
+        android:icon="@drawable/ic_third"
+        android:title="Profile" />
+    <!--<item
+        android:id="@+id/fourthFragment"
+        android:icon="@drawable/ic_fourth"
+        android:title="Devices" />
+    <item
+        android:id="@+id/fifthFragment"
+        android:icon="@drawable/ic_fifth"
+        android:title="Security" /> -->
+</menu>
