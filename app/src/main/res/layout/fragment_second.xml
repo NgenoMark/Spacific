@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:text="Simton"
                         android:textSize="18sp"
-                        android:textColor="#000000" />
+                        android:textColor="#4DA6FF" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:text="Trisum"
                         android:textSize="18sp"
-                        android:textColor="#000000" />
+                        android:textColor="#4DA6FF" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:text="Babadogo"
                         android:textSize="18sp"
-                        android:textColor="#000000" />
+                        android:textColor="#4DA6FF" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

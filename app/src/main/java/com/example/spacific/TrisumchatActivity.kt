@@ -4,41 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spacific.ui.theme.ComposeTutorialTheme
@@ -54,29 +31,36 @@ class TrisumchatActivity : ComponentActivity() {
     }
 }
 
-// Data class for Trisum chat messages
+// Data class for messages
 data class TrisumChatMessage(val author: String, val body: String)
 
-// Sample data for Trisum chat preview
-object TrisumSampleData {
-    val conversationSample = listOf(
-        TrisumChatMessage("Alice", "How's everything going with Jetpack Compose?"),
-        TrisumChatMessage("Bob", "It's really fascinating! Learning so much."),
-        TrisumChatMessage("Alice", "Same here! It simplifies UI so much."),
-        TrisumChatMessage("Bob", "Agreed! Can't wait to use it in more projects."),
-        TrisumChatMessage("Alice", "Compose is definitely a game-changer."),
-    )
-}
-
+// Trisum chat screen composable
 @Composable
 fun TrisumChatScreen() {
-    var messages by remember { mutableStateOf(TrisumSampleData.conversationSample.toMutableList()) }
+    var messages by remember {
+        mutableStateOf(
+            mutableListOf(
+                TrisumChatMessage(
+                    "Trisum",
+                    """
+                    Welcome to Trisum Chat! Here are the details you can ask about:
+                    
+                    • Services
+                    • Pricing
+                    • Support
+                    
+                    Please type your query from the above in lowercase to get a response.
+                    """.trimIndent()
+                )
+            )
+        )
+    }
     var textState by remember { mutableStateOf(TextFieldValue("")) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 16.dp)
+            .padding(16.dp)
     ) {
         TrisumConversation(
             messages = messages,
@@ -88,8 +72,8 @@ fun TrisumChatScreen() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .imePadding()
+                .imePadding(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             TextField(
                 value = textState,
@@ -97,14 +81,21 @@ fun TrisumChatScreen() {
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                placeholder = { Text("Enter your message") },
+                placeholder = { Text("Enter your message") }
             )
 
             Button(
                 onClick = {
                     if (textState.text.isNotEmpty()) {
-                        messages.add(TrisumChatMessage("Alice", textState.text))
+                        val userMessage = textState.text.trim()
+                        messages.add(TrisumChatMessage("Mark", userMessage))
                         textState = TextFieldValue("")
+
+                        // Automated response logic
+                        val response = getTrisumAutomatedResponse(userMessage)
+                        if (response != null) {
+                            messages.add(TrisumChatMessage("Trisum", response))
+                        }
                     }
                 },
                 modifier = Modifier.padding(start = 8.dp)
@@ -115,6 +106,17 @@ fun TrisumChatScreen() {
     }
 }
 
+// Automated response for TrisumChat
+fun getTrisumAutomatedResponse(input: String): String? {
+    return when {
+        "services" in input.lowercase() -> "Our services include tech consultations, development, and support."
+        "pricing" in input.lowercase() -> "Pricing depends on the project, but hourly rates start at $50."
+        "support" in input.lowercase() -> "We offer 24/7 customer support to ensure your success."
+        else -> "I'm sorry, I didn't catch that. Could you clarify your question?"
+    }
+}
+
+// Conversation composable
 @Composable
 fun TrisumConversation(messages: List<TrisumChatMessage>, modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier) {
@@ -124,16 +126,14 @@ fun TrisumConversation(messages: List<TrisumChatMessage>, modifier: Modifier = M
     }
 }
 
+// Message card composable
 @Composable
 fun TrisumMessageCard(msg: TrisumChatMessage) {
-    var isExpanded by remember { mutableStateOf(false) }
-    var isHovered by remember { mutableStateOf(false) }
-
     val surfaceColor by animateColorAsState(
-        if (isHovered || isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
+        if (msg.author == "Trisum") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
     )
 
-    val isFromUser = msg.author == "Alice"
+    val isFromUser = msg.author == "Mark"
 
     Row(
         modifier = Modifier
@@ -141,10 +141,10 @@ fun TrisumMessageCard(msg: TrisumChatMessage) {
             .padding(8.dp),
         horizontalArrangement = if (isFromUser) Arrangement.Start else Arrangement.End
     ) {
-        if (!isFromUser) {
+        if (isFromUser) {
             Image(
                 painter = painterResource(R.drawable.profile_picture),
-                contentDescription = "Contact Profile Picture",
+                contentDescription = "User Profile Picture",
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape)
@@ -155,51 +155,34 @@ fun TrisumMessageCard(msg: TrisumChatMessage) {
 
         Column(
             modifier = Modifier
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onTap = { isExpanded = !isExpanded },
-                        onPress = {
-                            isHovered = true
-                            tryAwaitRelease()
-                            isHovered = false
-                        }
-                    )
-                }
-                .animateContentSize()
                 .padding(1.dp)
                 .widthIn(max = 250.dp)
         ) {
             Text(
                 text = msg.author,
                 color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleSmall,
-                textAlign = if (isFromUser) TextAlign.Start else TextAlign.End
+                style = MaterialTheme.typography.titleSmall
             )
-
             Spacer(modifier = Modifier.height(4.dp))
-
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 shadowElevation = 1.dp,
                 color = surfaceColor,
-                modifier = Modifier
-                    .animateContentSize()
-                    .padding(1.dp)
+                modifier = Modifier.padding(1.dp)
             ) {
                 Text(
                     text = msg.body,
-                    modifier = Modifier.padding(all = 4.dp),
-                    maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+                    modifier = Modifier.padding(8.dp),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
 
-        if (isFromUser) {
+        if (!isFromUser) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
-                painter = painterResource(R.drawable.app),
-                contentDescription = "Contact Profile Picture",
+                painter = painterResource(R.drawable.trisum),
+                contentDescription = "Trisum Profile Picture",
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape)

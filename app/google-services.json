@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "945581997626",
+    "project_id": "spacific2-20dc0",
+    "storage_bucket": "spacific2-20dc0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945581997626:android:8043756f985980dd35bf03",
+        "android_client_info": {
+          "package_name": "com.example.spacific"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3EHLZABUJScXC4o0g0lkR__bnO7GGAZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

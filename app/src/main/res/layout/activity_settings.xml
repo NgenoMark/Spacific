@@ -21,14 +21,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <android.widget.TextView
+        <!--<android.widget.TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Account"
             android:textSize="18sp"
             android:textColor="@android:color/black"
-            android:padding="16dp"/>
+            android:padding="16dp"/> -->
     </androidx.cardview.widget.CardView>
 
     <!-- Privacy Card -->
